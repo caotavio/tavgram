@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>New Activity</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showCloseOptions()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-slides pager="true">
+      <ion-slide *ngFor="let filter of filters">
+        <img src="{{ post.image }}" class="{{ filter }}" alt="">
+      </ion-slide>
+    </ion-slides>
+  </ion-card>
+
+  <ion-item *ngIf="!post.location">
+    <ion-icon name="pin" slot="start"></ion-icon>
+    <ion-label>
+      <small>No location available</small>
+    </ion-label>
+    <ion-button fill="outline" slot="end" (click)="getLocation()">Activate</ion-button>
+  </ion-item>
+
+  <!-- <ion-item lines="none">
+    <ion-textarea [(ngModel)]="post.description" placeholder="Descrição" (focusout)="saveLocal()"></ion-textarea>
+  </ion-item> -->
+  
+  <ion-button ion-item fill="clear" expand="full" *ngIf="post.location" (click)="showMap()">
+    <ion-icon name="pin" slot="start"></ion-icon>
+    See location
+  </ion-button>
+
+</ion-content>
