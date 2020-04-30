@@ -26,13 +26,19 @@
     <ion-button fill="outline" slot="end" (click)="getLocation()">Activate</ion-button>
   </ion-item>
 
-  <!-- <ion-item lines="none">
-    <ion-textarea [(ngModel)]="post.description" placeholder="Descrição" (focusout)="saveLocal()"></ion-textarea>
-  </ion-item> -->
+  <ion-item lines="none">
+    <ion-textarea [(ngModel)]="post.description" placeholder="Description" (focusout)="saveLocal()"></ion-textarea>
+  </ion-item>
   
   <ion-button ion-item fill="clear" expand="full" *ngIf="post.location" (click)="showMap()">
     <ion-icon name="pin" slot="start"></ion-icon>
     See location
+  </ion-button>
+  <br>
+
+  <ion-progress-bar [value]="percent/100" *ngIf="progress | async as percent"></ion-progress-bar>
+  <ion-button ion-item fill="outline" shape="round" size="large" expand="block" (click)="submit()" *ngIf="!progress">
+    PUBLISH
   </ion-button>
 
 </ion-content>

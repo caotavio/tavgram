@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/post.models';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { ToastController, NavController, AlertController } from '@ionic/angular';
 
 @Component({
@@ -12,6 +12,9 @@ import { ToastController, NavController, AlertController } from '@ionic/angular'
 export class PostPage implements OnInit {
   public post: Post = new Post('', '', null);
   public filters: string[] = [];
+
+  public task: AngularFireUploadTask;
+  public progress: any;
 
   constructor(
     private db: AngularFirestore,
@@ -53,18 +56,7 @@ export class PostPage implements OnInit {
     const toast = await this.toastCtrl.create({
       message: message,
       duration: 3000,
-      showCloseButton: true,
-      closeButtonText: "OK"
     });
-    toast.present;
-  }
-
-  async showMessage(message: string) {
-    const toast = await this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      showCloseButton: true,
-      closeButtonText: "OK" });
     toast.present;
   }
 
@@ -94,7 +86,31 @@ export class PostPage implements OnInit {
   }
 
   close() {
-    this.navCtrl.navigateBack("/home");
+    this.navCtrl.navigateBack('/home');
   }
 
+  saveLocal() {
+    localStorage.setItem('tavgram.post', JSON.stringify(this.post));
+  }
+
+  submit() {
+    const filePath = `post_${new Date().getTime()}.jpg`;
+
+    this.task = this.storage.ref(filePath).putString(this.post.image, 'data_url');
+    this.progress = this.task.percentageChanges();
+
+    this.task.then((data) => {
+      const ref = this.storage.ref(data.metadata.fullPath);
+      ref.getDownloadURL().subscribe((imgUrl) => {
+        this.post.image = imgUrl;
+        this.db.collection('posts').add(this.post);
+        localStorage.removeItem('tavgram.post');
+        this.navCtrl.navigateBack('/home');
+      });
+    });
+  }
+
+  showMap() {
+    this.navCtrl.navigateForward('/map');
+  }
 }
