@@ -5,6 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+// import { RouterModule } from '@angular/router';
+
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -12,7 +20,17 @@ import { HomePageRoutingModule } from './home-routing.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase, 'baltagram'),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    // RouterModule.forChild([
+    //   {
+    //     path: '',
+    //     component: HomePage
+    //   }
+    // ])
   ],
   declarations: [HomePage]
 })
