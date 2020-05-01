@@ -19,7 +19,7 @@ export class MapPage implements AfterViewInit {
   ngAfterViewInit() {
     // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
     // tslint:disable-next-line: max-line-length
-    const html = '<iframe style="height: 100vh;" width="100%" height="99%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAcCNPJhWpuJ5OGrtn4_O0winfAcWjPxeA&origin=' + this.post.location + '&destination=' + this.post.location + '" allowfullscreen></iframe>';
+    const html = '<iframe style="height: 100vh;" width="100%" height="99%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/directions?key=---API_KEY_HERE---&origin=' + this.post.location + '&destination=' + this.post.location + '" allowfullscreen></iframe>';
     document.getElementById('map').innerHTML = html;
   }
 
