@@ -1,0 +1,27 @@
+<ion-content class="ion-padding">
+  <br><br>
+  <h1 class="ion-text-center logo-white">
+    TavGram
+  </h1>
+  <br><br>
+  <ion-list lines="none">
+    <form [formGroup]="form">
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+    </form>
+  </ion-list>
+  <br>
+  <ion-button ion-item color="light" fill="outline" shape="round" expand="full" size="large" (click)="submit()">
+    Register
+  </ion-button>
+  <ion-button ion-item color="light" fill="clear" expand="full" (click)="cancel()">
+    Cancel
+  </ion-button>
+</ion-content>
